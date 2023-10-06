@@ -1,20 +1,20 @@
 from pydantic import BaseModel, Field
 
 class TaskBase(BaseModel):
-  title: str | None = Field(None, example="クリーニングを取りに行く")
+    title: str | None = Field(None, example="クリーニングを取りに行く")
 
 class TaskCreate(TaskBase):
-  pass
+    pass
 
 class TaskCreateResponse(TaskCreate):
-  id: int
+    id: int
 
-  class Config:
-    orm_mode = True
+    class Config:
+        orm_mode = True
 
 class Task(TaskBase):
-  id: int
-  done: bool = Field(False, description="完了フラグ")
+    id: int
+    done: bool = Field(False, description="完了フラグ")
 
-  class Config:
-    orm_mode = True
+    class Config:
+        orm_mode = True
