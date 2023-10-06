@@ -8,9 +8,9 @@ router = APIRouter()
 async def list_tasks():
   return [task_schema.Task(id=1, title="1つ目のToDoタスク")]
 
-@router.post("/tasks")
-async def create_task():
-  pass
+@router.post("/tasks", response_model=task_schema.TaskCreateResponse)
+async def create_task(task_body: task_schema.TaskCreate):
+  return task_schema.TaskCreateResponse(id=1, **task_body.dict())
 
 @router.put("/tasks/{task_id}")
 async def update_task():
