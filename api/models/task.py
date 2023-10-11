@@ -9,7 +9,7 @@ class Task(Base):
   id = Column(Integer, primary_key=True)
   title = Column(String(1024))
 
-  done = relationship("Done", back_populates="task", cascde="delete")
+  done = relationship("Done", back_populates="task", cascade="delete")
 
 class Done(Base):
   __tablename__ = "dones"
