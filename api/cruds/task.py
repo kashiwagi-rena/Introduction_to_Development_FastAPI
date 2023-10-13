@@ -26,7 +26,7 @@ def get_tasks_with_done(db: Session) -> list[tuple[int, str, bool]]:
 
 def get_task(db: Session, task_id: int) -> task_model.Task | None:
     result: Result = db.execute(
-        select(task_model.Task).fillter(task_model.Task.id == task_id)
+        select(task_model.Task).filter(task_model.Task.id == task_id)
     )
     return result.scalars().first()
 
