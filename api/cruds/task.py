@@ -1,16 +1,16 @@
-from sqlalchemy.orm import Session
-
 from sqlalchemy import select
 from sqlalchemy.engine import Result
+from sqlalchemy.orm import Session
+from sqlalchemy.ext.asyncio import AsyncSession
 
 import api.models.task as task_model
 import api.schemas.task as task_schema
 
-def create_task(db:Session, task_create: task_schema.TaskCreate) -> task_model.Task:
+async def create_task(db: AsyncSession, task_create: task_schema.TaskCreate) -> task_model.Task:
     task = task_model.Task(**task_create.dict())
     db.add(task)
-    db.commit()
-    db.refresh(task)
+    await db.commit()
+    await db.refresh(task)
     return task
 
 def get_tasks_with_done(db: Session) -> list[tuple[int, str, bool]]:
