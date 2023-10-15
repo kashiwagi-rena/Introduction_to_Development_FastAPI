@@ -24,19 +24,19 @@ async def get_tasks_with_done(db: AsyncSession) -> list[tuple[int, str, bool]]:
 
     return result.all()
 
-def get_task(db: Session, task_id: int) -> task_model.Task | None:
-    result: Result = db.execute(
+async def get_task(db: AsyncSession, task_id: int) -> task_model.Task | None:
+    result: Result = await db.execute(
         select(task_model.Task).filter(task_model.Task.id == task_id)
     )
     return result.scalars().first()
 
-def update_task(
-    db: Session, task_create: task_schema.TaskCreate, original: task_model.Task
+async def update_task(
+    db: AsyncSession, task_create: task_schema.TaskCreate, original: task_model.Task
 ) -> task_model.Task:
     original.title = task_create.title
     db.add(original)
-    db.commit()
-    db.refresh(original)
+    await db.commit()
+    await db.refresh(original)
     return original
 
 def delete_task(db: Session, original: task_model.Task) -> None:
