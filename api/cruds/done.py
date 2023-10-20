@@ -1,6 +1,6 @@
 from sqlalchemy  import select
 from sqlalchemy.engine import Result
-from sqlalchemy.orm.asyncio import AsyncSession
+from sqlalchemy.ext.asyncio import AsyncSession
 
 import api.models.task as task_model
 
