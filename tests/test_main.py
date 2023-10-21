@@ -21,16 +21,16 @@ async def async_client() -> AsyncClient:
     await conn.run_sync(Base.metadata.drop_all)
     await conn.run_sync(Base.metadata.create_all)
 
-# DIを使ってFastAPIのDBの向き先をテスト用DBに変更
-async def get_test_db():
-  async with async_session() as session:
-    yield session
+  # DIを使ってFastAPIのDBの向き先をテスト用DBに変更
+  async def get_test_db():
+    async with async_session() as session:
+      yield session
 
-app.dependency_overrides[get_db] = get_test_db
+  app.dependency_overrides[get_db] = get_test_db
 
-# テスト用に非同期HTTPクライアントを返却
-async with AsyncClient(app=app, base_url="http://test") as client:
-  yield client
+  # テスト用に非同期HTTPクライアントを返却
+  async with AsyncClient(app=app, base_url="http://test") as client:
+    yield client
 
 import starlette.status
 
