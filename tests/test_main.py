@@ -70,3 +70,8 @@ async def test_done_flag(async_client):
   # 既に完了フラグが外れているので404を返却
   response = await async_client.delete("/tasks/1/done")
   assert response.status_code == starlette.status.HTTP_404_NOT_FOUND
+
+@pytest.mark.asyncio
+async def test_due_date(async_client):
+  response = await async_client.post("/tasks", json={"title": "テストタスク", "due_date": "2024-12-01"})
+  assert response.status_code == starlette.status.HTTP_200_OK
