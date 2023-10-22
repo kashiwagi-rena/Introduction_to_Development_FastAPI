@@ -75,3 +75,6 @@ async def test_done_flag(async_client):
 async def test_due_date(async_client):
   response = await async_client.post("/tasks", json={"title": "テストタスク", "due_date": "2024-12-01"})
   assert response.status_code == starlette.status.HTTP_200_OK
+
+  response = await async_client.post("/tasks", json={"title": "テストタスク", "due_date": "2024-12-32"})
+  assert response.status_code == starlette.status.HTTP_422_UNPROCESSABLE_ENTIT
