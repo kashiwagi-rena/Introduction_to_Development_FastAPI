@@ -1,7 +1,9 @@
+import datetime
 from pydantic import BaseModel, Field
 
 class TaskBase(BaseModel):
     title: str | None = Field(None, example="クリーニングを取りに行く")
+    due_date: datetime.date | None = Field(None, example="2024-12-01")
 
 class TaskCreate(TaskBase):
     pass
