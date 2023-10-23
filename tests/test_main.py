@@ -80,14 +80,6 @@ async def test_due_date(async_client):
     starlette.status.HTTP_422_UNPROCESSABLE_ENTITY,
     starlette.status.HTTP_422_UNPROCESSABLE_ENTITY
   ]
-  response = await async_client.post("/tasks", json={"title": "テストタスク", "due_date": input_param})
-  assert response.status_code == expectation
-
-  response = await async_client.post("/tasks", json={"title": "テストタスク", "due_date": input_param})
-  assert response.status_code == expectation
-
-  response = await async_client.post("/tasks", json={"title": "テストタスク", "due_date": input_param})
-  assert response.status_code == expectation
-
-  response = await async_client.post("/tasks", json={"title": "テストタスク", "due_date": input_param})
-  assert response.status_code == expectation
+  for input_param, expetation in zip(input_list, expectation_list):
+    response = await async_client.post("/tasks", json={"title": "テストタスク", "due_date": input_param})
+    assert response.status_code == expectation
