@@ -1,5 +1,9 @@
+import os
+
 from sqlalchemy.ext.asyncio import create_async_engine, AsyncSession
 from sqlalchemy.orm import sessionmaker, declarative_base
+
+DB_USER = os.environ.get("DB_USER", "root")
 
 ASYNC_DB_URL = "mysql+aiomysql://root@db:3306/demo?charset=utf8"
 
